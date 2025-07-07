@@ -21,5 +21,13 @@ vim.keymap.set("n", "<leader>dg", "<cmd>Trouble diagnostics toggle filter.buf=0<
 
 vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear highligh" })
 
+vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", {desc = "Split vertical"})
+vim.keymap.set("n", "<leader>sh", ":split<CR>", {desc = "Split horizontal"})
+vim.keymap.set("n", "<leader>wh", "<C-W>h", {desc = "Go left split"})
+vim.keymap.set("n", "<leader>wj", "<C-W>j", {desc = "Go down split"})
+vim.keymap.set("n", "<leader>wk", "<C-W>k", {desc = "Go up split"})
+vim.keymap.set("n", "<leader>wl", "<C-W>l", {desc = "Go right split"})
+vim.keymap.set("n", "<leader>wq", ":q<CR>", {desc = "Quit split"})
+vim.keymap.set("n", "<leader>wQ", ":q!<CR>", {desc = "Quit split without save"})
 
 --vim.keymap.set("n", "<leader>", "", { desc = "" })
