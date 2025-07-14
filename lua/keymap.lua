@@ -9,15 +9,19 @@ vim.keymap.set("n", "<leader>fs", telescope.find_files, { desc = "Git files" })
 
 vim.keymap.set("n", "<leader>ss", telescope.lsp_document_symbols, { desc = "File symbols" })
 vim.keymap.set("n", "<leader>sS", telescope.lsp_dynamic_workspace_symbols, { desc = "Dynamic workspace symbols" })
-vim.keymap.set("n", "<leader>gr", telescope.lsp_references, { desc = "Go to references" })
-vim.keymap.set("n", "<leader>gi", telescope.lsp_implementations, { desc = "Go to implementsion" })
-vim.keymap.set("n", "<leader>gd", telescope.lsp_definitions, { desc = "Go to definitions" })
-vim.keymap.set("n", "<leader>gt", telescope.lsp_type_definitions, { desc = "Go to type definition" })
 vim.keymap.set("n", "<leader>km", telescope.keymaps, { desc = "List keymaps" })
 vim.keymap.set("n", "<leader>bf", telescope.buffers, { desc = "List buffers" })
+--vim.keymap.set("n", "<leader>gr", telescope.lsp_references, { desc = "Go to references" })
+--vim.keymap.set("n", "<leader>gi", telescope.lsp_implementations, { desc = "Go to implementsion" })
+--vim.keymap.set("n", "<leader>gd", telescope.lsp_definitions, { desc = "Go to definitions" })
+--vim.keymap.set("n", "<leader>gt", telescope.lsp_type_definitions, { desc = "Go to type definition" })
+vim.keymap.set("n", "<leader>gr", "<cmd>Trouble lsp_references toggle auto_refresh=false auto_preview=false<cr>", { desc = "Go to references" })
+vim.keymap.set("n", "<leader>gi", "<cmd>Trouble lsp_implementations toggle auto_refresh=false auto_preview=false<cr>", { desc = "Go to implementsion" })
+vim.keymap.set("n", "<leader>gd", "<cmd>Trouble lsp_definitions toggle auto_refresh=false auto_preview=false<cr>", { desc = "Go to definitions" })
+vim.keymap.set("n", "<leader>gt", "<cmd>Trouble lsp_type_definitions toggle auto_refresh=false auto_preview=false<cr>", { desc = "Go to type definitions" })
 
 
-vim.keymap.set("n", "<leader>dg", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Open diagnostics" })
+vim.keymap.set("n", "<leader>dg", "<cmd>Trouble diagnostics toggle filter.buf=0 auto_refresh=false auto_preview=false<cr>", { desc = "Open diagnostics" })
 
 vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear highligh" })
 
@@ -29,5 +33,9 @@ vim.keymap.set("n", "<leader>wk", "<C-W>k", {desc = "Go up split"})
 vim.keymap.set("n", "<leader>wl", "<C-W>l", {desc = "Go right split"})
 vim.keymap.set("n", "<leader>wq", ":q<CR>", {desc = "Quit split"})
 vim.keymap.set("n", "<leader>wQ", ":q!<CR>", {desc = "Quit split without save"})
+
+local functions = require("functions")
+vim.keymap.set("n", "<leader>rh", functions.resizeWindowHeight, {desc = "Resize window height"})
+vim.keymap.set("n", "<leader>rw", functions.resizeWindowWidth, {desc = "Resize window width"})
 
 --vim.keymap.set("n", "<leader>", "", { desc = "" })

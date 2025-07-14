@@ -24,3 +24,5 @@ vim.api.nvim_create_autocmd("User", {
         require("keymap")
     end
 })
+
+require("functions").tweekJdtlsConfig()
