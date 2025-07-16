@@ -13,6 +13,8 @@ vim.opt.incsearch = true      -- Incremental search
 vim.opt.termguicolors = true  -- True color support
 vim.opt.scrolloff = 8         -- Keep cursor centered
 vim.opt.signcolumn = "yes"    -- Always show sign column
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Leader key
 vim.g.mapleader = " "
