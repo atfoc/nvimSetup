@@ -6,7 +6,7 @@ return {
         build = ":TSUpdate",
 
         opts = {
-            ensure_installed = { "c", "json", "html", "lua", "tsx", "typescript", "yaml", "go" },
+            ensure_installed = { "c", "json", "html", "lua", "tsx", "typescript", "yaml", "go", "java" },
             highlight = { enable = true },
             indent = { enable = true },
         },
