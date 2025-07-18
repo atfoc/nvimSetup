@@ -34,7 +34,7 @@ function M.tweekJdtlsConfig()
                 ,
                 '-data',
                 homwDir .. "/.cache/jdtls/data/" .. projectName,
-                "--jvm-arg=-javaagent:/Users/pedjat/.local/share/java/lombok.jar",
+                "--jvm-arg=-javaagent:".. homwDir .. "/.local/share/java/lombok.jar",
                 "--jvm-arg=-Xms4g"
 
             }
