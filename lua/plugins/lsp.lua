@@ -50,7 +50,7 @@ return {
     {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
-        dependencies = { 'rafamadriz/friendly-snippets' },
+        dependencies = { 'rafamadriz/friendly-snippets', "dadbod-completion" },
 
         -- use a release tag to download pre-built binaries
         version = '1.*',
@@ -76,12 +76,21 @@ return {
             },
 
             -- (Default) Only show the documentation popup when manually triggered
-            completion = { documentation = { auto_show = false } },
+            completion = {
+                documentation = { auto_show = false },
+                menu = { auto_show = false, },
+            },
 
             -- Default list of enabled providers defined so that you can extend it
             -- elsewhere in your config, without redefining it, due to `opts_extend`
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
+                per_filetype = {
+                    sql = { 'snippets', 'dadbod', 'buffer' },
+                },
+                providers = {
+                    dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+                },
             },
 
             -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
@@ -93,5 +102,20 @@ return {
             signature = { enabled = true },
         },
         opts_extend = { "sources.default" }
+    },
+    {
+        'tpope/vim-dadbod',
+        name = "dadbod"
+    },
+    {
+        "kristijanhusak/vim-dadbod-ui",
+        name = "dadbod-ui",
+        dependencies = { "dadbod" }
+    },
+    {
+        'kristijanhusak/vim-dadbod-completion',
+        name = "dadbod-completion",
+        ft = { 'sql', 'mysql', 'plsql' },
+        dependencies = { "dadbod" },
     }
 }
