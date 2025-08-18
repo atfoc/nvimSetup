@@ -34,4 +34,6 @@ local functions = require("functions")
 vim.keymap.set("n", "<leader>rh", functions.resizeWindowHeight, {desc = "Resize window height"})
 vim.keymap.set("n", "<leader>rw", functions.resizeWindowWidth, {desc = "Resize window width"})
 
+vim.keymap.set("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", { desc = "Rename" })
+
 --vim.keymap.set("n", "<leader>", "", { desc = "" })
