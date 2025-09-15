@@ -3,6 +3,7 @@ vim.keymap.set("n", "<leader>qv", ":qall<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>qV", ":qall!<CR>", { desc = "Quit force" })
 vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, { desc = "Format file" })
 vim.keymap.set("n", "<leader>nt", ":NERDTreeToggle<CR>", { desc = "Nerd tree toggle" })
+vim.keymap.set("n", "<leader>nT", ":NERDTreeFind<CR>", { desc = "Nerd tree find" })
 
 local telescope = require("telescope.builtin")
 vim.keymap.set("n", "<leader>fs", telescope.find_files, { desc = "Git files" })
