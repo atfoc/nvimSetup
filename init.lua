@@ -27,4 +27,11 @@ vim.api.nvim_create_autocmd("User", {
     end
 })
 
-require("functions").tweekJdtlsConfig()
+local functions = require("functions")
+functions.tweekJdtlsConfig()
+vim.api.nvim_create_autocmd("VimEnter", {
+    desc = "Clear jump list on startup to prevent jumping to old files",
+    callback = function()
+        functions.deleteJumpList()
+    end,
+})
