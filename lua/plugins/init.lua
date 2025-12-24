@@ -13,6 +13,7 @@ return {
     },
     {
         'nvim-telescope/telescope.nvim',
+        name="telescope",
         tag = '0.1.8',
         opts = {
             defaults = {
@@ -39,4 +40,12 @@ return {
             },
         },
     },
+    {
+        'nvim-telescope/telescope-ui-select.nvim',
+        name="telescope-ui-select",
+        dependencies = {"telescope"},
+        config = function()
+            require("telescope").load_extension("ui-select")
+        end
+    }
 }
