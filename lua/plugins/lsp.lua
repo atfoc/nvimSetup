@@ -119,5 +119,10 @@ return {
         name = "dadbod-completion",
         ft = { 'sql', 'mysql', 'plsql' },
         dependencies = { "dadbod" },
+    },
+    {
+        'mfussenegger/nvim-jdtls',
+        name = "nvim-jdtls",
+        ft = { "java" }
     }
 }
