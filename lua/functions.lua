@@ -46,4 +46,11 @@ function M.deleteJumpList()
     vim.cmd("clearjumps")
 end
 
+function M.applyCodeAction(title, kind)
+    vim.lsp.buf.code_action({
+        filter = function(a) return a.kind == kind and a.title == title end,
+        apply = true
+    })
+end
+
 return M
