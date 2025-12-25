@@ -12,6 +12,7 @@ vim.keymap.set("n", "<leader>ss", telescope.lsp_document_symbols, { desc = "File
 vim.keymap.set("n", "<leader>sS", telescope.lsp_dynamic_workspace_symbols, { desc = "Dynamic workspace symbols" })
 vim.keymap.set("n", "<leader>km", telescope.keymaps, { desc = "List keymaps" })
 vim.keymap.set("n", "<leader>bf", telescope.buffers, { desc = "List buffers" })
+vim.keymap.set("n", "<leader>ac", telescope.commands, { desc = "List commands" })
 vim.keymap.set("n", "<leader>gr", "<cmd>Trouble lsp_references toggle auto_refresh=false auto_preview=false<cr>",
     { desc = "Go to references" })
 vim.keymap.set("n", "<leader>gi", "<cmd>Trouble lsp_implementations toggle auto_refresh=false auto_preview=false<cr>",
@@ -46,16 +47,3 @@ vim.keymap.set("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", { desc = "Ren
 vim.keymap.set("n", "<leader>ca", ":lua vim.lsp.buf.code_action()<CR>", { desc = "Code actions" })
 
 --vim.keymap.set("n", "<leader>", "", { desc = "" })
-
-
-
-local function setupJavaKeymap()
-    vim.keymap.set("n", "<leader>ev", function()
-        functions.applyCodeAction("Extract to local variable", "refactor.extract.variable")
-    end, { desc = "Java: Extract Variable" })
-end
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "java",
-    callback = setupJavaKeymap,
-})
