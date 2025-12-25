@@ -13,11 +13,11 @@ end
 function M.tweekJdtlsConfig()
     local cwd = vim.fn.getcwd()
     local rootDir = vim.fs.root(cwd, {
+        'pom.xml',
         '.git',
         'build.gradle',
         'build.gradle.kts',
         'build.xml',
-        'pom.xml',
         'settings.gradle',
         'settings.gradle.kts',
     })
@@ -37,7 +37,8 @@ function M.tweekJdtlsConfig()
                 "--jvm-arg=-javaagent:" .. homwDir .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
                 "--jvm-arg=-Xms4g"
 
-            }
+            },
+            root_dir = rootDir,
         })
     end
 end
