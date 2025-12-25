@@ -10,8 +10,9 @@ vim.api.nvim_create_user_command("CopyClassFullName", function()
         (package_declaration
             (scoped_identifier) @package)
 
-        (class_declaration
-            name: (identifier) @class)
+        (program
+            (class_declaration
+                name: (identifier) @class))
     ]])
 
     local packageName = ""
