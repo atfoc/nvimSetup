@@ -46,4 +46,7 @@ vim.keymap.set("n", "<leader>rn", ":lua vim.lsp.buf.rename()<CR>", { desc = "Ren
 
 vim.keymap.set("n", "<leader>ca", ":lua vim.lsp.buf.code_action()<CR>", { desc = "Code actions" })
 
+
+vim.keymap.set("n", "<C-K>", ":lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
+
 --vim.keymap.set("n", "<leader>", "", { desc = "" })
