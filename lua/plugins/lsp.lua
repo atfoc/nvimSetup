@@ -7,7 +7,7 @@ return {
 
         opts = {
             ensure_installed = { "c", "json", "html", "lua", "tsx", "typescript", "yaml", "go", "java" },
-            highlight = { enable = true },
+            highlight = { enable = true, additional_vim_regex_highlighting = false},
             indent = { enable = true },
         },
         config = function(_, opts)
