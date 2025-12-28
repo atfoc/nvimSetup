@@ -15,6 +15,7 @@ vim.opt.scrolloff = 8         -- Keep cursor centered
 vim.opt.signcolumn = "yes"    -- Always show sign column
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.highlight.priorities.semantic_tokens = 95
 
 -- Leader key
 vim.g.mapleader = " "
