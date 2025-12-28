@@ -387,3 +387,12 @@ end
 
 M:generate_ts_from_java()
 return M
+
+
+-- get path from annotation
+-- get http method from overriden method
+-- get params for request
+-- generate sending request code
+-- generate parsing response code
+-- create command only for java
+-- test on few other handlers
