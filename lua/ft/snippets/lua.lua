@@ -7,6 +7,7 @@ local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
+local r = require("luasnip.extras").rep
 
 ls.add_snippets("all", { s("fl", fmt([[
 for {}, {} in {}({}) do
@@ -68,6 +69,17 @@ ls.add_snippets("all", {
 })
 
 ls.add_snippets("all", {
+    s("mf", fmt([[
+        {}
+        function {}:{}({})
+            {}
+        end 
+    ]], {f(generate_parameter_doc, {3}), i(1, "M"), i(2, "name"), i(3, "param..."), i(0, "body")}))
+})
+
+
+
+ls.add_snippets("all", {
     s("ie", fmt([[
         if err ~= nil then
             return {}, err
@@ -75,4 +87,23 @@ ls.add_snippets("all", {
     ]], {i(0, "value")}))
 })
 
+
+ls.add_snippets("all", {
+    s("cl", fmt([[
+        ---@class {}
+        local {} = {{}}
+        {}.__index = {}
+
+        ---@return {}
+        function {}.new()
+            ---@type {}
+            local self = {{}}
+            setmetatable(self, {})
+
+            return self
+        end
+        {}
+        
+    ]], {r(1), i(1, "ClassName"),  r(1), r(1), r(1), r(1), r(1), r(1), i(0)}))
+})
 
