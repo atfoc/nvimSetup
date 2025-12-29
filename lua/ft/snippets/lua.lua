@@ -29,3 +29,50 @@ ls.add_snippets("all", {
         end 
     ]], {i(1, "condition"), i(0, "body")}))
 })
+
+
+local function generate_parameter_doc(args)
+    local function_params = args[1][1]
+    local result = {}
+    for value in string.gmatch(function_params, "[^,]+") do
+        table.insert(result, string.format("---@param %s type", value))
+    end
+    table.insert(result, "---@return type")
+    return result
+end
+
+ls.add_snippets("all", {
+    s("lf", fmt([[
+        {}
+        local function {}({})
+            {}
+        end 
+    ]], {f(generate_parameter_doc, {2}), i(1, "name"), i(2, "param..."), i(0, "body")}))
+})
+
+ls.add_snippets("all", {
+    s("af", fmt([[
+        function ({})
+            {}
+        end 
+    ]], {i(1, "param..."), i(0, "body")}))
+})
+
+ls.add_snippets("all", {
+    s("sf", fmt([[
+        {}
+        function {}.{}({})
+            {}
+        end 
+    ]], {f(generate_parameter_doc, {3}), i(1, "M"), i(2, "name"), i(3, "param..."), i(0, "body")}))
+})
+
+ls.add_snippets("all", {
+    s("ie", fmt([[
+        if err ~= nil then
+            return {}, err
+        end 
+    ]], {i(0, "value")}))
+})
+
+
