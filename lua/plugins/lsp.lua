@@ -7,7 +7,7 @@ return {
 
         opts = {
             ensure_installed = { "c", "json", "html", "lua", "tsx", "typescript", "yaml", "go", "java" },
-            highlight = { enable = true, additional_vim_regex_highlighting = false},
+            highlight = { enable = true, additional_vim_regex_highlighting = false },
             indent = { enable = true },
         },
         config = function(_, opts)
@@ -45,12 +45,19 @@ return {
                 { path = "lazy.nvim",          words = { "LazyVim" } },
             },
         },
-    }
-    ,
+    },
+    {
+        "L3MON4D3/LuaSnip",
+        name="luaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    },
     {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
-        dependencies = { 'rafamadriz/friendly-snippets', "dadbod-completion" },
+        dependencies = { "luaSnip", "dadbod-completion" },
 
         -- use a release tag to download pre-built binaries
         version = '1.*',

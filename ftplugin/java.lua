@@ -1,2 +1,3 @@
-require('ftKeymap.java')
-require('ftCommands.java')
+require('ft.keymap.java')
+require('ft.commands.java')
+require('ft.snippets.java')
