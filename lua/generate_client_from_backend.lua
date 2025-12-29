@@ -142,6 +142,13 @@ function CodeGenerator:new_line()
     return self
 end
 
+---@param format string
+---@param  ... any
+---@return CodeGenerator
+function CodeGenerator:put_format(format, ...)
+    return self:put(string.format(format, ...))
+end
+
 ---@param amount integer?
 ---@return CodeGenerator
 function CodeGenerator:indent(amount)
@@ -373,8 +380,114 @@ local function generate_ts_from_java_class_recursivly(generator, name)
     end
 end
 
-function M.generate_ts_from_java()
+---@param generator CodeGenerator
+---@param  name string
+---@param  types_to_process table<string, boolean>
+---@return string?
+local function generate_parsing(generator, name, types_to_process)
+    local info, err = java_class_info(name)
+    if err ~= nil then
+        return err
+    end
 
+    generator:put_format("function convert%s(dto: any): %s {", name, name):new_line():indent()
+
+    generator:put("const result = {}"):new_line()
+    generator:put('if (!fieldOfType(dto, "object")) {'):new_line():indent()
+    generator:put("throw new Error('Failed to convert "):put(name):put(" because it is not json object')"):new_line()
+    generator:outdent():put("}"):new_line()
+
+    for _, field in ipairs(info.fields) do
+        local type, field_name, ok = field:get_field()
+        if ok then
+            local ts_type, err = convert_java_type_to_ts(type)
+            if err ~= nil then
+                ts_type = "object"
+                if types_to_process[type] == nil then
+                    types_to_process[type] = false
+                end
+            end
+
+            generator:put_format("if (!fieldOfType(dto.%s, '%s')) {", field_name, ts_type):indent():new_line()
+            generator:put_format("throw new Error('Failed to parse %s because field %s is not of type %s')", name,
+                field_name, ts_type):new_line()
+            generator:outdent():put("}"):new_line()
+
+            if ts_type == "object" then
+                generator:put_format("result.%s = convert%s(dto.%s)", field_name, type, field_name):new_line()
+            else
+                generator:put_format("result.%s = dto.%s", field_name, field_name):new_line()
+            end
+        end
+
+        local type, type_argument, field_name, ok = field:get_generic_field()
+        if ok then
+            if type ~= "List" then
+                return "Only supported generic type is list"
+            end
+
+            local ts_type, err = convert_java_type_to_ts(type_argument)
+            if err ~= nil then
+                ts_type = "object"
+                if types_to_process[type_argument] == nil then
+                    types_to_process[type_argument] = false
+                end
+            end
+
+            generator:put_format("if (!fieldOfType(dto.%s, 'array')) {", field_name):indent():new_line()
+            generator:put_format("throw new Error('Failed to parse %s because field %s is not of type array')", name,
+                field_name):new_line()
+            generator:outdent():put("}"):new_line()
+            generator:put_format("result.%s = dto.%s.map(el => {", field_name, field_name):indent():new_line()
+
+            generator:put_format("if (!fieldOfType(el, '%s')) {", ts_type):indent():new_line()
+            generator:put_format("throw new Errro('Failed to parse dto.%s because one element is not of type %s')",
+                field_name, ts_type):new_line()
+            generator:outdent():put("}"):new_line()
+
+            if ts_type == "object" then
+                generator:put_format("return convert%s(el)", type_argument):new_line()
+            else
+                generator:put_format("return dto.%s", field_name):new_line()
+            end
+
+            generator:outdent():put("})"):new_line()
+        end
+    end
+
+    generator:put("return result"):new_line()
+
+    generator:outdent():put("}"):new_line()
+end
+
+---@param generator CodeGenerator
+---@param  name string
+---@return string?
+local function generate_parsing_recursivly(generator, name)
+    local types_to_process = {}
+    types_to_process[name] = false
+
+    while true do
+        local to_process_next = nil
+        for type, processed in pairs(types_to_process) do
+            if processed == false then
+                to_process_next = type
+                break
+            end
+        end
+        if to_process_next == nil then
+            return nil
+        end
+
+        local err = generate_parsing(generator, to_process_next, types_to_process)
+        if err ~= nil then
+            return err
+        end
+        types_to_process[to_process_next] = true
+    end
+end
+
+function M.generate_ts_from_java()
     local generator = CodeGenerator.new()
     local err = generate_ts_from_java_class_recursivly(generator, "Response")
     if err ~= nil then
@@ -382,6 +495,10 @@ function M.generate_ts_from_java()
         return
     end
 
+    err = generate_parsing_recursivly(generator, "Response")
+    if err ~= nil then
+        vim.notify(err, vim.log.levels.ERROR)
+    end
     vim.print(generator:generate())
 end
 
@@ -393,6 +510,7 @@ return M
 -- get http method from overriden method
 -- get params for request
 -- generate sending request code
--- generate parsing response code
 -- create command only for java
 -- test on few other handlers
+--
+--
