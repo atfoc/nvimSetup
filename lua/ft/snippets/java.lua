@@ -12,5 +12,3 @@ ls.add_snippets("all", {
         t("hello "), i(1, "first name"), t(" "), i(2, "last name"), i(0, "")
     })
 })
-
-

@@ -54,4 +54,17 @@ function M.applyCodeAction(title, kind)
     })
 end
 
+function M.lua_snip_jump_expand_or_tab()
+    local ls = require("luasnip")
+    if ls.expand_or_jumpable() then
+        -- Condition is true: expand or jump
+        ls.expand_or_jump()
+    else
+        -- Condition is false: insert a real Tab character
+        -- we use nvim_replace_termcodes to turn "<Tab>" into the actual keycode
+        local tab = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+        vim.api.nvim_feedkeys(tab, "n", false)
+    end
+end
+
 return M

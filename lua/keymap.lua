@@ -51,7 +51,7 @@ vim.keymap.set("n", "<C-K>", ":lua vim.lsp.buf.signature_help()<CR>", { desc = "
 
 local ls = require("luasnip")
 
-vim.keymap.set({"i", "s"}, "<TAB>", function() ls.expand_or_jump() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<TAB>", functions.lua_snip_jump_expand_or_tab, {silent = true})
 vim.keymap.set({"i", "s"}, "<S-TAB>", function() ls.jump(-1) end, {silent = true})
 
 vim.keymap.set({"i", "s"}, "<C-E>", function()
@@ -61,3 +61,4 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 end, {silent = true})
 
 --vim.keymap.set("n", "<leader>", "", { desc = "" })
+--
