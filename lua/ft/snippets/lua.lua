@@ -107,3 +107,10 @@ ls.add_snippets("all", {
     ]], {r(1), i(1, "ClassName"),  r(1), r(1), r(1), r(1), r(1), r(1), i(0)}))
 })
 
+
+ls.add_snippets("all", {
+    s("vn", fmt([[
+        vim.notify({}, vim.log.levels.{}){}
+    ]], {i(1, "err"), c(2, {t("ERROR"), t("DEBUG"), t("INFO"), t("WARN")}), i(0)}))
+})
+
