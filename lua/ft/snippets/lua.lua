@@ -12,14 +12,45 @@ local r = require("luasnip.extras").rep
 ls.add_snippets("all", { s("fl", fmt([[
 for {}, {} in {}({}) do
     {}
+    {}
 end
 ]], {
 
-    i(1, "index"),
+    i(3, "index"),
+    i(4, "value"),
+    c(2, { t("pairs"), t("ipairs") }),
+    i(1, "over"),
+    i(5, "body"),
+    i(0)
+}
+)) })
+
+ls.add_snippets("all", { s("fi", fmt([[
+for {} in {} do
+    {}
+    {}
+end
+]], {
+
     i(2, "value"),
-    c(3, { t("paris"), t("ipairs") }),
-    i(4, "over"),
-    i(0, "")
+    i(1, "over"),
+    i(3, "body"),
+    i(0)
+}
+)) })
+
+
+ls.add_snippets("all", { s("fr", fmt([[
+for {} in {} do
+    {}
+    {}
+end
+]], {
+
+    i(2, "i"),
+    i(1, "start, step, end_inclusive"),
+    i(3, "body"),
+    i(0)
 }
 )) })
 
